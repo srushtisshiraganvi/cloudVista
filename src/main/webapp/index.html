@@ -1,7 +1,66 @@
 <html>
-<body>
+<style>
+  /* hide the stray black hero div */
+  div[style*="min-height:100vh"][style*="background:#000"] { display: none !important; }
+</style>
+<body class="futuristic">
+  <!-- Top deployment badge -->
+  <div style="position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(90deg,#06F6D7,#8B5CF6);color:#041026;padding:10px 18px;border-radius:999px;font-weight:600;box-shadow:0 8px 30px rgba(11,22,40,0.6);backdrop-filter:blur(6px);">
+    🚀 Deployed: First project live on AWS EC2
+  </div>
 
+  <!-- Futuristic background layers -->
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;">
+    <div style="position:absolute;inset:0;background:
+      radial-gradient(ellipse at 10% 20%, rgba(6,246,215,0.06), transparent 200px),
+      radial-gradient(ellipse at 90% 80%, rgba(139,92,246,0.05), transparent 240px),
+      linear-gradient(180deg, rgba(4,6,10,0.65), rgba(7,17,35,0.45));
+      mix-blend-mode:screen;filter:blur(30px);"></div>
+    <canvas id="particles" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+  </div>
+
+  <script>
+    (function(){
+      const c = document.getElementById('particles');
+      if(!c) return;
+      const ctx = c.getContext('2d');
+      let w, h, drops=[];
+      function resize(){
+        w = c.width = innerWidth;
+        h = c.height = innerHeight;
+        drops = Array.from({length: Math.max(24, Math.floor(w*h/90000))}, ()=>({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          r: Math.random()*1.6+0.4,
+          vx: (Math.random()-0.5)*0.12,
+          vy: - (Math.random()*0.25+0.03),
+          alpha: Math.random()*0.6+0.06
+        }));
+      }
+      function step(){
+        ctx.clearRect(0,0,w,h);
+        drops.forEach(d=>{
+          d.x += d.vx; d.y += d.vy;
+          if(d.y < -20 || d.x < -20 || d.x > w+20) { d.x = Math.random()*w; d.y = h+20; }
+          const grd = ctx.createRadialGradient(d.x,d.y,0,d.x,d.y,d.r*8);
+          grd.addColorStop(0, `rgba(139,92,246,${d.alpha})`);
+          grd.addColorStop(0.6, `rgba(6,246,215,${d.alpha*0.6})`);
+          grd.addColorStop(1, 'rgba(6,246,215,0)');
+          ctx.fillStyle = grd;
+          ctx.beginPath();
+          ctx.arc(d.x,d.y,d.r*6,0,Math.PI*2);
+          ctx.fill();
+        });
+        requestAnimationFrame(step);
+      }
+      addEventListener('resize', resize);
+      resize(); step();
+    })();
+  </script>
 </body>
+
+<!-- Black theme hero for top of page -->
+<div style="min-height:100vh;background:#000;color:#eaf2ff;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:40px;box-sizing:border-box;"></div>
 </html>
 <!DOCTYPE html>
 <html lang="en">
