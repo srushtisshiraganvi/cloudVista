@@ -1,0 +1,6 @@
+com\cloudVista\model\Instance.class
+com\cloudVista\controller\InstanceController.class
+com\cloudVista\service\InstanceService.class
+com\cloudVista\CloudVistaApplication.class
+com\cloudVista\repository\InstanceRepository.class
+com\cloudVista\controller\HomeController.class

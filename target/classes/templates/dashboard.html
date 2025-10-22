@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CloudVista Dashboard</title>
+    <style>
+        body { font-family: Poppins, sans-serif; background: #f3f6fd; text-align: center; }
+        h2 { color: #1f5eff; margin-top: 20px; }
+        table { margin: 30px auto; border-collapse: collapse; width: 85%; background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+        th, td { padding: 12px; border: 1px solid #ddd; }
+        th { background: #1f5eff; color: white; }
+        tr:hover { background: #f2f2f2; }
+        .alert { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>☁️ CloudVista Monitoring Dashboard</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Instance ID</th>
+            <th>CPU (%)</th>
+            <th>Memory (%)</th>
+            <th>Disk (%)</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="inst : ${instances}">
+            <td th:text="${inst.id}"></td>
+            <td th:text="${inst.instanceId}"></td>
+            <td th:text="${inst.cpuUsage}" th:classappend="${inst.cpuUsage > 70} ? 'alert' : ''"></td>
+            <td th:text="${inst.memoryUsage}" th:classappend="${inst.memoryUsage > 75} ? 'alert' : ''"></td>
+            <td th:text="${inst.diskUsage}"></td>
+            <td th:text="${inst.status}"></td>
+        </tr>
+    </table>
+</body>
+</html>
