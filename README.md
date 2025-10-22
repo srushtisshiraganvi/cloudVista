@@ -3,6 +3,7 @@
 CloudVista is a Spring Boot web application that helps monitor cloud instances efficiently.  
 It displays real-time information such as CPU usage, memory utilization, disk usage, and instance status through a clean and interactive dashboard.
 
+It’s similar in concept to AWS CloudWatch, Azure Monitor, or Google Cloud Console, but built at a smaller scale for demonstration and learning.
 ---
 
 ## 🚀 Features
