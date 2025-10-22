@@ -34,4 +34,20 @@ It displays real-time information such as CPU usage, memory utilization, disk us
    ```bash
    git clone https://github.com/<your-username>/CloudVista.git
    cd CloudVista
+2. **Configure MySQL**
+
+Create a database named cloudvista
+Update your MySQL username & password in application.properties
+
+spring.datasource.url=jdbc:mysql://localhost:3306/cloudvista?createDatabaseIfNotExist=true
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+
+3. **Run the Application**
+mvn spring-boot:run
+
+
+4. **Access in Browser**
+http://localhost:1234/
    
