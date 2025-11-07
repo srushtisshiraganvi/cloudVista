@@ -3,17 +3,88 @@
 <head>
     <title>CloudVista Dashboard</title>
     <style>
-        body { font-family: Poppins, sans-serif; background: #f3f6fd; text-align: center; }
-        h2 { color: #1f5eff; margin-top: 20px; }
-        table { margin: 30px auto; border-collapse: collapse; width: 85%; background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
-        th, td { padding: 12px; border: 1px solid #ddd; }
-        th { background: #1f5eff; color: white; }
-        tr:hover { background: #f2f2f2; }
-        .alert { color: red; font-weight: bold; }
+        /* ---------- General Styling ---------- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0ebff, #f9fbff);
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #002b80;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 2rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+        }
+
+        /* ---------- Table Container ---------- */
+        table {
+            width: 90%;
+            margin: 40px auto;
+            border-collapse: collapse;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: linear-gradient(90deg, #4b6ef5, #1e56f0);
+            color: #fff;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 14px;
+        }
+
+        td {
+            padding: 14px;
+            font-size: 0.95rem;
+            color: #333;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f7faff;
+        }
+
+        tr:hover {
+            background-color: #ebf1ff;
+            transition: 0.3s ease;
+        }
+
+        /* ---------- Status Colors ---------- */
+        .alert {
+            color: #e63946;
+            font-weight: 600;
+        }
+
+        .ok {
+            color: #2a9d8f;
+            font-weight: 600;
+        }
+
+        /* ---------- Card Shadow Effect ---------- */
+        table, h2 {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- Header Icon ---------- */
+        h2::before {
+            content: '☁️ ';
+        }
     </style>
 </head>
 <body>
-    <h2>☁️ CloudVista Monitoring Dashboard</h2>
+    <h2>CloudVista Monitoring Dashboard</h2>
+
     <table>
         <tr>
             <th>ID</th>
@@ -26,10 +97,10 @@
         <tr th:each="inst : ${instances}">
             <td th:text="${inst.id}"></td>
             <td th:text="${inst.instanceId}"></td>
-            <td th:text="${inst.cpuUsage}" th:classappend="${inst.cpuUsage > 70} ? 'alert' : ''"></td>
-            <td th:text="${inst.memoryUsage}" th:classappend="${inst.memoryUsage > 75} ? 'alert' : ''"></td>
+            <td th:text="${inst.cpuUsage}" th:classappend="${inst.cpuUsage > 70} ? 'alert' : 'ok'"></td>
+            <td th:text="${inst.memoryUsage}" th:classappend="${inst.memoryUsage > 75} ? 'alert' : 'ok'"></td>
             <td th:text="${inst.diskUsage}"></td>
-            <td th:text="${inst.status}"></td>
+            <td th:text="${inst.status}" th:classappend="${inst.status == 'Running'} ? 'ok' : 'alert'"></td>
         </tr>
     </table>
 </body>
